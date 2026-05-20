@@ -46,6 +46,7 @@ fun DictationScreen(
     val previewText by viewModel.previewText.collectAsStateWithLifecycle()
     val listening by viewModel.listening.collectAsStateWithLifecycle()
     val authRejected by viewModel.authRejected.collectAsStateWithLifecycle()
+    val onWifi by viewModel.onWifi.collectAsStateWithLifecycle()
 
     var hasAudioPermission by remember {
         mutableStateOf(
@@ -176,9 +177,17 @@ fun DictationScreen(
                             )
                         }
                         else -> {
+                            val statusText = when {
+                                connected -> "Tap the mic to start"
+                                !onWifi -> "Phone isn't on Wi-Fi — connect it to the same network as your PC"
+                                else -> "Looking for your PC... make sure it's on the same Wi-Fi"
+                            }
+                            // Actionable "turn on Wi-Fi" message shows at full
+                            // brightness; passive idle text stays dim.
+                            val statusAlpha = if (!connected && !onWifi) 1f else 0.35f
                             Text(
-                                text = if (connected) "Tap the mic to start" else "Waiting for PC connection...",
-                                color = PreviewText.copy(alpha = 0.35f),
+                                text = statusText,
+                                color = PreviewText.copy(alpha = statusAlpha),
                                 fontSize = 16.sp,
                                 textAlign = TextAlign.Center,
                             )

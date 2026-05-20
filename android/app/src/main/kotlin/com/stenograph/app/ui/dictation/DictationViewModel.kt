@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.stenograph.app.data.PreferencesManager
+import com.stenograph.app.network.NetworkMonitor
 import com.stenograph.app.network.ServiceDiscovery
 import com.stenograph.app.network.StenographWebSocket
 import com.stenograph.app.speech.SpeechManager
@@ -16,10 +17,12 @@ class DictationViewModel(application: Application) : AndroidViewModel(applicatio
     val webSocket = StenographWebSocket(viewModelScope)
     private val discovery = ServiceDiscovery(application)
     val speechManager = SpeechManager(application)
+    private val networkMonitor = NetworkMonitor(application)
 
     val connected: StateFlow<Boolean> = webSocket.connected
     val listening: StateFlow<Boolean> = speechManager.listening
     val authRejected: StateFlow<Boolean> = webSocket.authRejected
+    val onWifi: StateFlow<Boolean> = networkMonitor.onWifi
 
     private val _previewText = MutableStateFlow("")
     val previewText: StateFlow<String> = _previewText
@@ -114,5 +117,6 @@ class DictationViewModel(application: Application) : AndroidViewModel(applicatio
         speechManager.stopListening()
         webSocket.disconnect()
         discovery.stopDiscovery()
+        networkMonitor.release()
     }
 }
