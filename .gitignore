@@ -1,0 +1,31 @@
+# --- Python ---
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# --- Build output ---
+build/
+dist/
+
+# --- Android / Gradle ---
+.gradle/
+local.properties
+
+# --- Signing — never commit these (Phase 2) ---
+*.jks
+*.keystore
+keystore.properties
+
+# --- Inno Setup (Phase 2) ---
+Output/
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+*.hprof
+.idea/
+*.iml
