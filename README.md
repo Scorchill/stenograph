@@ -89,6 +89,23 @@ Right-click the tray icon for:
 - **Pause Typing** — stop typing without quitting.
 - **Quit**.
 
+## Troubleshooting
+
+**The phone shows "Disconnected" or won't connect.**
+
+This is almost always a network mismatch. Check these, in order:
+
+1. **The phone's Wi-Fi is on.** If the phone is on mobile data, it *cannot*
+   reach your PC — Stenograph only works over a shared local network. The
+   dictation screen tells you directly when Wi-Fi is off.
+2. **The phone and PC are on the same Wi-Fi network.** Guest networks isolate
+   devices from each other, and some routers split the 2.4 GHz and 5 GHz bands —
+   make sure both devices are on the same one.
+3. **The PC tray app is running** (a grey or green icon in the system tray).
+4. **Still stuck?** On the phone, tap **Re-pair** and scan the QR code again.
+   This refreshes both the PC's address and the access token — which fixes it
+   if your PC's IP address changed.
+
 ## Privacy
 
 Stenograph stores nothing and sends nothing to the internet. Speech is
